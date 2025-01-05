@@ -1,25 +1,30 @@
-# include<iostream>
-# include<vector>
-
+#include <iostream>
 using namespace std;
 
-string result;
+void convertToBase(int x, int m, string& result) {
+    if (x == 0) return; // 递归终止条件
 
-string baseConversion (int num, int M)
-{
-    if (!num) return 0;
-    int temp = num % M;
-    if (M > 10)
-    {
-        if (temp >= 10) 
+    int remainder = x % m; // 当前位
+    x /= m;               // 更新为下一层递归的值
+
+    // 递归处理更高位
+    convertToBase(x, m, result);
+
+    // 将余数转换为字符并添加到结果中
+    if (remainder < 10) {
+        result += (char)(remainder + '0'); // 0-9
+    } else {
+        result += (char)(remainder - 10 + 'A'); // A-F
     }
 }
 
-int main()
-{
-    int num, M;
-    cin >> num >> M;
-    result = baseConversion(num, M);
+int main() {
+    int x, m;
+    cin >> x >> m;
+
+    string result = "";
+    convertToBase(x, m, result);
+
     cout << result << endl;
     return 0;
 }
