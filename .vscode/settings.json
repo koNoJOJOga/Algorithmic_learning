@@ -3,6 +3,8 @@
     "files.associations": {
         "ratio": "cpp",
         "iostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "vector": "cpp",
+        "stack": "cpp"
     }
 }
