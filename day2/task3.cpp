@@ -7,9 +7,9 @@ char a1[10001],b1[10001];
 int a[10001],b[10001],i,x,len,j,c[10001];
 int main ()
 {
-    cin>>a1>>b1;//不解释，不懂看前面
-    int lena=strlen(a1);//每个部分都很清楚
-	int lenb=strlen(b1);//这只是方便你们复制
+    cin>>a1>>b1;
+    int lena=strlen(a1);
+	int lenb=strlen(b1);
     for(i=1;i<=lena;i++)a[i]=a1[lena-i]-'0';
     for(i=1;i<=lenb;i++)b[i]=b1[lenb-i]-'0';
 	for(i=1;i<=lenb;i++)
