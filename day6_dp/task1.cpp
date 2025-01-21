@@ -1,46 +1,49 @@
 #include <iostream>
-#include <cstring>
+#include <vector>
 using namespace std;
 
-const int MAXN = 25;
-int dp[MAXN][MAXN];
-bool blocked[MAXN][MAXN]; // 标记不可达点
-
-// 马的控制点
-const int dx[8] = {2, 2, -2, -2, 1, -1, 1, -1};
-const int dy[8] = {1, -1, 1, -1, 2, 2, -2, -2};
+const int fx[] = {0, -2, -1, 1, 2, 2, 1, -1, -2};
+const int fy[] = {0, 1, 2, 2, 1, -1, -2, -2, -1};
 
 int main() {
-    int n, m, hx, hy;
-    cin >> n >> m >> hx >> hy;
+    int bx, by, mx, my;
+    cin >> bx >> by >> mx >> my;
 
-    // 初始化 blocked 数组
-    memset(blocked, false, sizeof(blocked));
+    // Adjust coordinates for easier indexing
+    bx += 2;
+    by += 2;
+    mx += 2;
+    my += 2;
 
-    // 标记马的位置及其控制点为不可达
-    blocked[hx][hy] = true;
-    for (int i = 0; i < 8; ++i) {
-        int nx = hx + dx[i];
-        int ny = hy + dy[i];
-        if (nx >= 0 && ny >= 0 && nx <= n && ny <= m) {
-            blocked[nx][ny] = true;
+    // Dynamic programming table and obstacle grid
+    vector<vector<long long>> f(2, vector<long long>(by + 1, 0));
+    vector<vector<bool>> s(bx + 1, vector<bool>(by + 1, false));
+
+    // Mark the knight's position and its control points
+    s[mx][my] = true;
+    for (int i = 1; i <= 8; ++i) {
+        int nx = mx + fx[i];
+        int ny = my + fy[i];
+        if (nx >= 2 && nx <= bx && ny >= 2 && ny <= by) {
+            s[nx][ny] = true;
         }
     }
 
-    // 初始化 dp 数组
-    memset(dp, 0, sizeof(dp));
-    dp[0][0] = 1; // 起点初始化
+    // Initialize starting position
+    f[1][2] = 1;
 
-    // 动态规划求解
-    for (int i = 0; i <= n; ++i) {
-        for (int j = 0; j <= m; ++j) {
-            if (blocked[i][j]) continue; // 不可达点跳过
-            if (i > 0) dp[i][j] += dp[i-1][j];
-            if (j > 0) dp[i][j] += dp[i][j-1];
+    // Dynamic programming
+    for (int i = 2; i <= bx; ++i) {
+        for (int j = 2; j <= by; ++j) {
+            if (s[i][j]) {
+                f[i & 1][j] = 0; // Reset if blocked by the knight
+            } else {
+                f[i & 1][j] = f[(i - 1) & 1][j] + f[i & 1][j - 1];
+            }
         }
     }
 
-    // 输出结果
-    cout << dp[n][m] << endl;
+    // Output the result
+    cout << f[bx & 1][by] << endl;
     return 0;
 }
