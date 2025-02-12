@@ -9,6 +9,7 @@
         "__split_buffer": "cpp",
         "deque": "cpp",
         "ostream": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "algorithm": "cpp"
     }
 }
