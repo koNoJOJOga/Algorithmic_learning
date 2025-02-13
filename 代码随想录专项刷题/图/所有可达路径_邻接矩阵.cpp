@@ -5,7 +5,7 @@ using namespace std;
 vector<vector<int>> result;
 vector<int> path;
 
-void dfs (int x, int n, vector<vector<int>> g) {
+void dfs (int x, int n, vector<vector<int>>& g) {
     if (x == n) {
         result.push_back(path);
         return;
