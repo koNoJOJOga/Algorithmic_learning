@@ -10,6 +10,7 @@
         "deque": "cpp",
         "ostream": "cpp",
         "set": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "unordered_map": "cpp"
     }
 }
