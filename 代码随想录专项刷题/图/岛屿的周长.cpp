@@ -9,8 +9,10 @@ void dfs (vector<vector<int>>& grid, int x, int y, vector<vector<bool>>& visited
     for (int i = 0; i < 4; ++ i ) {
         int next_x = x + dir[i][0];
         int next_y = y + dir[i][1];
-        if (next_x < 0 || next_x >= grid.size() || next_y < 0 || next_y >= grid[0].size())
+        if (next_x < 0 || next_x >= grid.size() || next_y < 0 || next_y >= grid[0].size()) {
+            ++ ans;
             continue;
+        }
         if (grid[next_x][next_y] == 0) {    // ocean
             ++ ans;
             continue;
